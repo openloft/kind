@@ -15,3 +15,6 @@ ingress:
     wget -O ingress-nginx.yaml https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
     sed -i "" -E 's#- /nginx-ingress-controller#- /nginx-ingress-controller\n        - --enable-ssl-passthrough#g' ingress-nginx.yaml
     kubectl apply -f ingress-nginx.yaml
+
+nvgpu:
+    kubectl apply -f nvgpu.yaml
