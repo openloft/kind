@@ -6,10 +6,12 @@ alias c := create
 alias d := delete
 
 create: delete
-	kind create cluster --name=host-cluster --config=config.yaml
+    kind create cluster --name=host-cluster --config=config.yaml
 
 delete:
     kind delete cluster --name=host-cluster
 
 ingress:
-    kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
+    wget -O ingress-nginx.yaml https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
+    sed -i "" -E 's#- /nginx-ingress-controller#- /nginx-ingress-controller\n        - --enable-ssl-passthrough#g' ingress-nginx.yaml
+    kubectl apply -f ingress-nginx.yaml
