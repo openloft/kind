@@ -2,6 +2,7 @@
 # ^ A shebang isn't required, but allows a justfile to be executed
 #   like a script, with `./justfile test`, for example.
 
+alias a := all
 alias c := create
 alias d := delete
 
@@ -18,3 +19,5 @@ ingress:
 
 nvgpu:
     kubectl apply -f nvgpu.yaml
+
+all: create ingress nvgpu
