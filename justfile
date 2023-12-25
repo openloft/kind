@@ -17,7 +17,12 @@ ingress:
     sed -i "" -E 's#- /nginx-ingress-controller#- /nginx-ingress-controller\n        - --enable-ssl-passthrough#g' ingress-nginx.yaml
     kubectl apply -f ingress-nginx.yaml
 
+metrics-server:
+    wget -O metrics-server.yaml https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+    sed -i "" -E 's#- --metric-resolution=15s#- --metric-resolution=15s\n        - --kubelet-insecure-tls#g' metrics-server.yaml
+    kubectl apply -f metrics-server.yaml
+
 nvgpu:
     kubectl apply -f nvgpu.yaml
 
-all: create ingress nvgpu
+all: create ingress nvgpu metrics-server
